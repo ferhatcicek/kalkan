@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="enterprise-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALKAN - Kurumsal Uç Nokta Güvenlik & Sıkılaştırma Denetimi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/assets/logo.jpg">
+    <script src="/static/js/i18n.js"></script>
+</head>
+<body>
+    <!-- Üst Başlık Çubuğu (Navbar) -->
+    <header class="app-header">
+        <!-- 1. ÜST PLATFORM BARI (Platform Bar) -->
+        <div class="header-main-bar">
+            <!-- Sol: Marka ve Birleşik Donanım/İşletim Sistemi Telemetrisi -->
+            <div class="brand-cluster">
+                <div class="nav-brand">
+                    <div class="brand-text">
+                        <span class="brand-name">KALKAN</span>
+                        <span class="brand-tag">SECURITY</span>
+                    </div>
+                </div>
+
+                <div class="header-vdivider"></div>
+
+                <!-- Birleşik, Sadeleştirilmiş Endpoint Telemetri Göstergesi -->
+                <div class="endpoint-telemetry-chip">
+                    <div class="telemetry-item host-item" id="hostBadge" title="Hedef Uç Nokta Cihazı">
+                        <span class="pulse-dot"></span>
+                        <span id="txtHost">DESKTOP-ENDPOINT</span>
+                    </div>
+                    <span class="telemetry-sep">•</span>
+                    <div class="telemetry-item" id="osBadge" title="İşletim Sistemi">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <span id="txtOS">Windows 11 Pro</span>
+                    </div>
+                    <span class="telemetry-sep">•</span>
+                    <div class="telemetry-item admin-item" id="adminBadge" title="Ayrıcalık Düzeyi">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"></path><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"></path></svg>
+                        <span id="txtAdmin">Yönetici</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ: Global Araçlar ve Dışa Aktarım Menüsü -->
+            <div class="header-actions">
+                <!-- Dil Seçici -->
+                <div class="theme-selector-wrap" title="Dili Değiştir / Change Language">
+                    <svg class="theme-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <select id="langSelect" onchange="window.setLanguage(this.value)">
+                        <option value="tr">Türkçe (TR)</option>
+                        <option value="en">English (EN)</option>
+                    </select>
+                </div>
+
+                <!-- Tema Seçici -->
+                <div class="theme-selector-wrap" title="Arayüz Temasını Değiştir">
+                    <svg class="theme-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <select id="themeSelect">
+                        <option value="enterprise-dark" data-i18n="theme_dark">Enterprise Dark</option>
+                        <option value="midnight-cyber" data-i18n="theme_hacker">Midnight Cyber</option>
+                        <option value="nord-frost">Nord Frost</option>
+                        <option value="enterprise-light" data-i18n="theme_light">Enterprise Light</option>
+                    </select>
+                </div>
+
+                <!-- Geçmiş Trend Butonu -->
+                <button class="header-btn" id="btnOpenHistory" title="Geçmiş Güvenlik Trendi ve Skor Geçmişi">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    <span data-i18n="history_title">Geçmiş Trendi</span>
+                </button>
+
+                <!-- Dışa Aktarma Menüsü -->
+                <div class="dropdown">
+                    <button class="header-btn header-btn-primary" title="Denetim Raporlarını Dışa Aktar">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span data-i18n="export_title">Dışa Aktar</span>
+                        <svg class="dropdown-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">SIEM & Uyumluluk Standartları</div>
+                        <a href="/api/export/nessus" target="_blank" class="dropdown-item nessus-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            <div>
+                                <div class="item-title">Nessus / SecurityCenter Uyumlu (.nessus XML)</div>
+                                <div class="item-desc">Tüm SIEM ve zafiyet yönetim sistemlerine doğrudan aktarım</div>
+                            </div>
+                        </a>
+                        <a href="/api/export/sarif" target="_blank" class="dropdown-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
+                            <div>
+                                <div class="item-title">OASIS SARIF Raporu (.sarif)</div>
+                                <div class="item-desc">GitHub Advanced Security & CI/CD pipeline formatı</div>
+                            </div>
+                        </a>
+                        <a href="/api/export/sbom" target="_blank" class="dropdown-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                            <div>
+                                <div class="item-title">CycloneDX v1.5 SBOM (.json)</div>
+                                <div class="item-desc">Yazılım bileşen ve üçüncü parti kütüphane envanteri</div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-header">Yönetim & Aksiyon Raporları</div>
+                        <a href="/api/export/nessus-html" target="_blank" class="dropdown-item exec-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            <div>
+                                <div class="item-title">Yönetici Özeti Raporu (Executive HTML)</div>
+                                <div class="item-desc">Grafikli kurumsal denetim ve risk karnesi özeti</div>
+                            </div>
+                        </a>
+                        <a href="/api/export/fix-script" target="_blank" class="dropdown-item fix-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <div>
+                                <div class="item-title">Otomatik Düzeltme Betiği (.ps1)</div>
+                                <div class="item-desc">Tespit edilen bulguları onaran PowerShell scripti</div>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/api/export/html" target="_blank" class="dropdown-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            <div>
+                                <div class="item-title">Yazdırılabilir Standart Rapor (.html)</div>
+                            </div>
+                        </a>
+                        <a href="/api/export/json" target="_blank" class="dropdown-item">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            <div>
+                                <div class="item-title">Ham Denetim Verisi (.json)</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ALT NAVİGASYON BARI (Nav Tabs Bar) -->
+        <div class="header-subnav-bar">
+            <nav class="app-nav-tabs" role="tablist">
+                <button class="nav-tab-btn top-nav-btn active" id="navBtnDashboard" role="tab" aria-selected="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span data-i18n="nav_dashboard">Taramalar & Bulgular</span>
+                </button>
+                <button class="nav-tab-btn top-nav-btn" id="navBtnWizard" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    <span data-i18n="nav_wizard">Tarama Sihirbazı</span>
+                    <span class="tab-pill-badge blue">6 Şablon</span>
+                </button>
+                <button class="nav-tab-btn top-nav-btn" id="navBtnRemediations" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <span data-i18n="nav_remediations">Öncelikli İyileştirme</span>
+                    <span class="tab-pill-badge amber">Top 5</span>
+                </button>
+                <button class="nav-tab-btn top-nav-btn" id="navBtnModules" role="tab" aria-selected="false">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    <span data-i18n="nav_modules">Güvenlik Modülleri</span>
+                    <span class="tab-pill-badge purple" id="navActiveCountBadge">15 Modül</span>
+                </button>
+            </nav>
+
+            <div class="subnav-meta-info">
+                <div class="meta-status-chip" title="Aktif denetim motoru kuralları">
+                    <span class="meta-status-dot"></span>
+                    <span data-i18n="engine_active">Denetim Motoru: 75 Kural Aktif</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ana İçerik Konteyneri -->
+    <main class="app-container">
+        <!-- ======================================================== -->
+        <!-- SAYFA 1: GENEL BAKIŞ & RAPOR (DASHBOARD)                 -->
+        <!-- ======================================================== -->
+        <div id="viewDashboard" class="view-page active">
+            <!-- Üst KPI Özet Sayaçları -->
+            <!-- Üst KPI Özet Sayaçları (Zafiyet & Durum Kutuları) -->
+            <section class="kpi-grid">
+                <div class="kpi-card" id="cardKpiTotal" data-kpifilter="all" style="cursor: pointer;" title="Tüm Kontrolleri Göster">
+                    <div style="flex: 1;">
+                        <div class="kpi-info-title" data-i18n="dash_kpi_total">Toplam Denetim</div>
+                        <div class="kpi-val-row">
+                            <div class="kpi-info-value" id="kpiTotal">0</div>
+                            <span class="kpi-pct-badge total" id="pctTotal">100%</span>
+                        </div>
+                        <div class="kpi-info-sub" data-i18n="cat_title">15 Güvenlik Modülü</div>
+                    </div>
+                    <div class="kpi-icon-wrap primary">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                    </div>
+                </div>
+
+                <div class="kpi-card" id="cardKpiPass" data-kpifilter="PASS" style="cursor: pointer;" title="Başarılı Kontrolleri Filtrele">
+                    <div style="flex: 1;">
+                        <div class="kpi-info-title" data-i18n="dash_kpi_pass">Başarılı (Geçti)</div>
+                        <div class="kpi-val-row">
+                            <div class="kpi-info-value" id="kpiPass" style="color: var(--color-pass);">0</div>
+                            <span class="kpi-pct-badge pass" id="pctPass">0%</span>
+                        </div>
+                        <div class="kpi-info-sub" data-i18n="filter_pass">Güvenli Parametreler</div>
+                    </div>
+                    <div class="kpi-icon-wrap pass">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                </div>
+
+                <div class="kpi-card" id="cardKpiCrit" data-kpifilter="CRITICAL" style="cursor: pointer;" title="Kritik Riskleri Filtrele">
+                    <div style="flex: 1;">
+                        <div class="kpi-info-title" data-i18n="dash_kpi_crit">Kritik Risk</div>
+                        <div class="kpi-val-row">
+                            <div class="kpi-info-value" id="kpiCrit" style="color: var(--color-crit);">0</div>
+                            <span class="kpi-pct-badge crit" id="pctCrit">0%</span>
+                        </div>
+                        <div class="kpi-info-sub" data-i18n="filter_crit">Acil Eylem Gerekli</div>
+                    </div>
+                    <div class="kpi-icon-wrap crit">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                </div>
+
+                <div class="kpi-card" id="cardKpiHigh" data-kpifilter="HIGH" style="cursor: pointer;" title="Yüksek Riskleri Filtrele">
+                    <div style="flex: 1;">
+                        <div class="kpi-info-title" data-i18n="dash_kpi_high">Yüksek Risk</div>
+                        <div class="kpi-val-row">
+                            <div class="kpi-info-value" id="kpiHigh" style="color: var(--color-high);">0</div>
+                            <span class="kpi-pct-badge high" id="pctHigh">0%</span>
+                        </div>
+                        <div class="kpi-info-sub" data-i18n="filter_high">Sıkılaştırma Tavsiyesi</div>
+                    </div>
+                    <div class="kpi-icon-wrap high">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                </div>
+
+                <div class="kpi-card" id="cardKpiWarn" data-kpifilter="fails" style="cursor: pointer;" title="Orta & Düşük Riskleri Filtrele">
+                    <div style="flex: 1;">
+                        <div class="kpi-info-title" data-i18n="dash_kpi_warn">Orta & Düşük</div>
+                        <div class="kpi-val-row">
+                            <div class="kpi-info-value" id="kpiWarn" style="color: var(--color-med);">0</div>
+                            <span class="kpi-pct-badge warn" id="pctWarn">0%</span>
+                        </div>
+                        <div class="kpi-info-sub" data-i18n="filter_med">Genel İyileştirmeler</div>
+                    </div>
+                    <div class="kpi-icon-wrap warn">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </div>
+                </div>
+            </section>
+
+        <!-- Hero Bölümü: Dairesel Güvenlik İndeksi & Kategori Çubukları -->
+        <section class="hero-analytics-grid">
+            <!-- Sol: Skor Kartı -->
+            <div class="score-panel-card">
+                <div class="gauge-outer">
+                    <svg class="gauge-svg" viewBox="0 0 200 200">
+                        <circle class="gauge-track" cx="100" cy="100" r="85"></circle>
+                        <circle class="gauge-value" id="gaugeValue" cx="100" cy="100" r="85"></circle>
+                    </svg>
+                    <div class="gauge-inner-content">
+                        <div class="gauge-inner-number" id="scoreNum">--</div>
+                        <div class="gauge-inner-label" data-i18n="gauge_label">GÜVENLİK İNDEKSİ</div>
+                    </div>
+                </div>
+
+                <div class="score-badge-status" id="scoreStatus">Analiz Ediliyor...</div>
+
+                <div class="profile-select-row" style="width: 100%; margin-bottom: 14px; text-align: left;">
+                    <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block;" data-i18n="profile_label">🎯 Denetim Profili</label>
+                    <select id="profileSelect" style="width: 100%; background: var(--bg-subtle); color: var(--text-primary); border: 1px solid var(--border-subtle); padding: 8px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                        <option value="cis-l1" data-i18n="profile_cis_l1">🏢 CIS Seviye 1 (Kurumsal Standart)</option>
+                        <option value="cis-l2" data-i18n="profile_cis_l2">🔒 CIS Seviye 2 (Yüksek Güvenlik / Kritik)</option>
+                        <option value="developer" data-i18n="profile_dev">💻 Geliştirici & Mühendislik</option>
+                        <option value="home-user" data-i18n="profile_home">🏠 Kişisel / Ev Kullanıcısı</option>
+                    </select>
+                </div>
+
+                <div class="scan-cta-wrap">
+                    <button class="btn btn-primary btn-scan-main" id="btnRunAudit">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span id="btnRunAuditText" data-i18n="btn_run_audit">GÜVENLİK TARAMASINI BAŞLAT</span>
+                    </button>
+                    <div class="last-scan-meta" id="lblScanMeta" data-i18n="dash_last_scan">Son tarama: Henüz yapılmadı</div>
+                </div>
+            </div>
+
+            <!-- Sağ: Kategori Dağılım Çubukları -->
+            <div class="categories-breakdown-card">
+                <div class="card-header-row">
+                    <div>
+                        <div class="card-header-title" data-i18n="breakdown_title">Kategori Bazlı Güvenlik Başarısı</div>
+                        <div class="card-header-sub" data-i18n="breakdown_sub">CIS Benchmark ve MITRE ATT&CK Uyum Oranları</div>
+                    </div>
+                </div>
+                <div class="cat-progress-grid" id="categoryBarsGrid">
+                    <!-- JS ile dinamik dolar -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Canlı Tarama İlerleme Bandı -->
+        <section class="live-scan-banner" id="liveScanBanner" style="display: none;">
+            <div class="live-scan-top">
+                <div class="live-module-name" id="liveModuleName">Antivirüs denetleniyor...</div>
+                <div class="live-pct" id="livePctText">0%</div>
+            </div>
+            <div class="live-track">
+                <div class="live-fill" id="liveProgressFill" style="width: 0%;"></div>
+            </div>
+            <div class="live-msg" id="liveStatusMsg">Sistem kontrolleri koordine ediliyor...</div>
+        </section>
+
+        <!-- Görünüm Sekmeleri (Tabs) -->
+        <nav class="section-tabs-bar">
+            <button class="tab-btn active" id="tabFindings" data-tab="findings">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span data-i18n="tab_findings">Tüm Güvenlik Bulguları</span>
+            </button>
+            <button class="tab-btn" id="tabPorts" data-tab="ports">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <span data-i18n="tab_ports">Ağ & Dinlenen Portlar Haritası</span>
+            </button>
+        </nav>
+
+        <!-- TAB 1: Bulgular Görünümü -->
+        <div id="viewFindings">
+            <!-- Filtre & Arama Araç Çubuğu -->
+            <section class="controls-toolbar">
+                <div class="filter-button-group" id="filterGroup">
+                    <button class="filter-chip active" data-filter="all"><span data-i18n="filter_all">Tümü</span> (<span id="fAll">0</span>)</button>
+                    <button class="filter-chip" data-filter="fails"><span data-i18n="filter_fails">Tüm Zafiyetler</span> (<span id="fFails">0</span>)</button>
+                    <button class="filter-chip chip-crit" data-filter="CRITICAL"><span data-i18n="filter_crit">Kritik</span> (<span id="fCrit">0</span>)</button>
+                    <button class="filter-chip chip-high" data-filter="HIGH"><span data-i18n="filter_high">Yüksek</span> (<span id="fHigh">0</span>)</button>
+                    <button class="filter-chip chip-med" data-filter="MEDIUM"><span data-i18n="filter_med">Orta</span> (<span id="fMed">0</span>)</button>
+                    <button class="filter-chip chip-pass" data-filter="PASS"><span data-i18n="filter_pass">Başarılı</span> (<span id="fPass">0</span>)</button>
+                </div>
+                <div class="search-input-box">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="filterSearch" data-i18n="search_placeholder" placeholder="Kontrol veya anahtar kelime ara (örn: SMB, UAC, BitLocker)...">
+                </div>
+            </section>
+
+            <!-- Bulgular Listesi -->
+            <section class="audit-accordion-stack" id="accordionStack">
+                <!-- JS ile dinamik dolar -->
+            </section>
+        </div>
+
+        <!-- TAB 2: Port Haritası Görünümü (Varsayılan Gizli) -->
+        <div id="viewPorts" style="display: none;">
+            <div class="ports-table-card">
+                <div class="card-header-row">
+                    <div>
+                        <div class="card-header-title" data-i18n="ports_title">Dış Dünyaya Açık Dinlenen Ağ Portları (0.0.0.0 & ::)</div>
+                        <div class="card-header-sub" data-i18n="ports_sub">Bilgisayarınızda dışarıdan gelen bağlantıları kabul eden aktif servisler</div>
+                    </div>
+                </div>
+                <table class="ports-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="th_port">Port</th>
+                            <th data-i18n="th_service">Protokol / Servis</th>
+                            <th data-i18n="th_binding">Dinleme Adresi</th>
+                            <th data-i18n="th_process">Çalışan Süreç (Process)</th>
+                            <th data-i18n="th_pid">PID</th>
+                            <th data-i18n="th_risk">Risk Durumu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="portsTableBody">
+                        <!-- JS ile doldurulur -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div> <!-- /viewDashboard -->
+
+        <!-- ======================================================== -->
+        <!-- SAYFA 2: GÜVENLİK MODÜLLERİ KATALOĞU (TÜM MODÜLLER)      -->
+        <!-- ======================================================== -->
+        <div id="viewModulesCatalog" class="view-page" style="display: none;">
+            <div class="catalog-hero-header">
+                <div class="catalog-hero-text">
+                    <div class="catalog-badge-row">
+                        <span class="catalog-pill-badge" id="catTotalBadge">15 Güvenlik Modülü</span>
+                        <span class="catalog-pill-badge active-state" id="catActiveBadge">15/15 Aktif</span>
+                        <span class="catalog-pill-badge">Eklenti Tabanlı (Pluggable)</span>
+                    </div>
+                    <h2 data-i18n="catalog_hero_h2">Güvenlik Modülleri Kontrol ve Yönetim Merkezi</h2>
+                    <p data-i18n="catalog_hero_p">Sistemde yüklü 15 derin güvenlik modülünü yönetin, aktif/pasif durumlarını değiştirin, tek tıkla bağımsız (&lt; 1 sn) tarayın veya detaylı modül sayfasına girerek tüm kuralları inceleyin.</p>
+                </div>
+                <div class="catalog-quick-actions">
+                    <button class="btn btn-secondary" id="btnCatalogEnableAll">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span data-i18n="btn_enable_all">Tümünü Aç</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btnCatalogDisableAll">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <span data-i18n="btn_disable_all">Tümünü Kapat</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Arama ve Kategori Filtreleri -->
+            <div class="catalog-toolbar">
+                <div class="catalog-search-box">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="catalogSearchInput" data-i18n="search_mod_placeholder" placeholder="Modül adı veya anahtar kelime ara (örn: Antivirüs, Credential Guard, Güvenlik Duvarı)...">
+                </div>
+                <div class="catalog-cat-chips" id="catalogCatChips">
+                    <button class="filter-chip active" data-modcat="all">Tümü (15)</button>
+                    <button class="filter-chip" data-modcat="Uç Nokta Koruması">Uç Nokta</button>
+                    <button class="filter-chip" data-modcat="Donanım & Çekirdek">Donanım & Çekirdek</button>
+                    <button class="filter-chip" data-modcat="Kimlik & Erişim">Kimlik & Erişim</button>
+                    <button class="filter-chip" data-modcat="Veri Güvenliği">Veri & Sırlar</button>
+                    <button class="filter-chip" data-modcat="Yazılım Güvenliği">Yazılım & SBOM</button>
+                    <button class="filter-chip" data-modcat="Ağ Güvenliği">Ağ & İstemci</button>
+                    <button class="filter-chip" data-modcat="Sistem & Günlük">Sistem & Günlük</button>
+                </div>
+            </div>
+
+            <!-- 12 Modül Kartları Izgarası (Grid) -->
+            <div class="catalog-cards-grid" id="catalogCardsGrid">
+                <!-- JS dinamik olarak doldurur -->
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- SAYFA 3: ÖZEL MODÜL DETAY VE KONTROL SAYFASI             -->
+        <!-- ======================================================== -->
+        <div id="viewModuleDetail" class="view-page" style="display: none;">
+            <!-- Üst Gezinme / Breadcrumb -->
+            <div class="detail-nav-bar">
+                <button class="btn btn-secondary btn-back-nav" id="btnBackToCatalog">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    <span data-i18n="btn_back_to_catalog">Tüm Modüllere Dön</span>
+                </button>
+                <div class="breadcrumb-trail">
+                    <span class="crumb-link" id="crumbLinkCatalog" data-i18n="cat_title">Güvenlik Modülleri</span>
+                    <span class="crumb-sep">/</span>
+                    <span id="detailCrumbCategory">Kategori</span>
+                    <span class="crumb-sep">/</span>
+                    <strong id="detailCrumbTitle">Modül Başlığı</strong>
+                </div>
+            </div>
+
+            <!-- Modül Hero Kartı (Yönetim, Bilgiler ve Ana Eylemler) -->
+            <div class="module-page-hero">
+                <div class="mod-hero-info">
+                    <div class="mod-hero-tags">
+                        <span class="mod-hero-tag highlight" id="detailTagCategory">Kategori</span>
+                        <span class="mod-hero-tag" id="detailTagWeight">Ağırlık: 10</span>
+                        <span class="mod-hero-tag" id="detailTagVersion">v1.0.0</span>
+                        <span class="mod-hero-tag" id="detailTagStandard">CIS & MITRE Uyumlu</span>
+                    </div>
+                    <h1 id="detailTitle">Modül Başlığı</h1>
+                    <p id="detailDesc">Modül teknik açıklaması burada yer alır.</p>
+                </div>
+
+                <div class="mod-hero-actions-col">
+                    <div class="mod-status-switch-row">
+                        <span class="mod-status-label" id="detailStatusLabel">Modül Durumu: <strong>Aktif</strong></span>
+                        <label class="ios-toggle">
+                            <input type="checkbox" id="detailToggleModule" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="mod-hero-buttons">
+                        <button class="btn btn-primary btn-scan-deep" id="btnDetailScanModule">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <span id="txtDetailScan" data-i18n="btn_scan_single_mod">BU MODÜLÜ BAĞIMSIZ TARA</span>
+                        </button>
+                        <a class="btn btn-secondary" id="btnDetailDownloadFix" href="#" target="_blank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            <span data-i18n="btn_download_fix_script">Düzeltme Betiği (.ps1)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modül KPI Sayaçları -->
+            <div class="detail-kpi-row">
+                <div class="detail-kpi-card">
+                    <span class="kpi-micro-lbl" data-i18n="mod_kpi_score">MODÜL SKORU</span>
+                    <span class="kpi-mega-val" id="detailKpiScore" style="color: var(--primary);">--%</span>
+                    <span class="kpi-micro-sub" data-i18n="mod_kpi_score_sub">Kategori İçi Başarı</span>
+                </div>
+                <div class="detail-kpi-card">
+                    <span class="kpi-micro-lbl" data-i18n="mod_kpi_total">TOPLAM KONTROL</span>
+                    <span class="kpi-mega-val" id="detailKpiTotal">--</span>
+                    <span class="kpi-micro-sub" data-i18n="mod_kpi_total_sub">Derin Denetim Kuralı</span>
+                </div>
+                <div class="detail-kpi-card">
+                    <span class="kpi-micro-lbl" data-i18n="mod_kpi_pass">BAŞARILI (PASS)</span>
+                    <span class="kpi-mega-val" id="detailKpiPass" style="color: var(--color-pass);">--</span>
+                    <span class="kpi-micro-sub" data-i18n="mod_kpi_pass_sub">Güvenli Parametreler</span>
+                </div>
+                <div class="detail-kpi-card">
+                    <span class="kpi-micro-lbl" data-i18n="mod_kpi_fail">RİSK / ZAFİYET</span>
+                    <span class="kpi-mega-val" id="detailKpiFail" style="color: var(--color-crit);">--</span>
+                    <span class="kpi-micro-sub" data-i18n="mod_kpi_fail_sub">İyileştirme Gerekli</span>
+                </div>
+                <div class="detail-kpi-card">
+                    <span class="kpi-micro-lbl" data-i18n="mod_kpi_duration">SON TARAMA SÜRESİ</span>
+                    <span class="kpi-mega-val" id="detailKpiDuration" style="font-size: 16px; font-weight: 800; color: var(--text-secondary);">Henüz Taranmadı</span>
+                    <span class="kpi-micro-sub" id="detailKpiTimestamp">--</span>
+                </div>
+            </div>
+
+            <!-- Modül Kuralları ve Kontrolleri -->
+            <div class="detail-checks-container">
+                <div class="detail-checks-header">
+                    <div class="checks-header-left">
+                        <h3 data-i18n="mod_checks_title">Modül Güvenlik Kontrolleri ve Kuralları</h3>
+                        <span class="checks-count-tag" id="detailChecksCountTag">0 Kontrol</span>
+                    </div>
+                    <div class="checks-filter-row">
+                        <div class="checks-filter-chips">
+                            <button class="filter-chip active" data-modfilter="all"><span data-i18n="filter_all">Tümü</span></button>
+                            <button class="filter-chip" data-modfilter="fails"><span data-i18n="filter_fails">Zafiyetler</span></button>
+                            <button class="filter-chip chip-crit" data-modfilter="CRITICAL"><span data-i18n="filter_crit">Kritik</span></button>
+                            <button class="filter-chip chip-high" data-modfilter="HIGH"><span data-i18n="filter_high">Yüksek</span></button>
+                            <button class="filter-chip chip-pass" data-modfilter="PASS"><span data-i18n="filter_pass">Başarılı</span></button>
+                        </div>
+                        <input type="text" id="detailCheckSearch" class="search-input-sm" data-i18n="search_rule_placeholder" placeholder="Kural veya kod ara...">
+                    </div>
+                </div>
+
+                <div class="detail-checks-stack" id="detailChecksStack">
+                    <!-- JS ile dinamik dolar -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- SAYFA 4: HEDEF ODAKLI TARAMA SİHİRBAZI (SCAN TEMPLATES) -->
+        <!-- ======================================================== -->
+        <div id="viewWizard" class="view-page" style="display: none;">
+            <div class="catalog-page-header">
+                <div>
+                    <h2 data-i18n="wizard_title">Hedefe Yönelik Güvenlik Tarama Şablonları</h2>
+                    <p data-i18n="wizard_sub">İhtiyacınıza uygun güvenlik profilini seçerek amaca yönelik zafiyet taramasını tek tıkla başlatın.</p>
+                </div>
+            </div>
+            <div class="wizard-grid" id="wizardTemplatesGrid">
+                <!-- JS dinamik doldurur -->
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- SAYFA 5: ÖNCELİKLİ RİSK AZALTMA (TOP REMEDIATIONS)        -->
+        <!-- ======================================================== -->
+        <div id="viewRemediations" class="view-page" style="display: none;">
+            <div class="catalog-page-header">
+                <div>
+                    <h2 data-i18n="rem_title">Öncelikli Risk Azaltma Eylemleri (Top Remediations)</h2>
+                    <p data-i18n="rem_sub">Güvenlik sektörünün kanıtlanmış yaklaşımı: Yüzlerce bulgu yerine, genel riski en hızlı düşürecek ilk 5 kritik eyleme odaklanın.</p>
+                </div>
+                <a class="btn btn-primary" href="/api/export/fix-script" target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <span data-i18n="rem_btn_download_all">Toplu Sıkılaştırma Betiği İndir (.ps1)</span>
+                </a>
+            </div>
+            <div class="top-remediations-stack" id="topRemediationsStack">
+                <!-- JS dinamik doldurur -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Güvenlik Kuralı & Zafiyet İnceleme Çekmecesi (Slide-Over Drawer) -->
+    <div class="nessus-drawer-backdrop" id="pluginDrawerBackdrop" style="display: none;">
+        <div class="nessus-drawer" id="pluginDrawer">
+            <div class="nessus-drawer-header">
+                <div>
+                    <div class="drawer-meta-badge" id="drawerPluginId">DENETİM KURALI #10101</div>
+                    <h3 class="drawer-title" id="drawerPluginTitle">Antivirüs Gerçek Zamanlı Koruma</h3>
+                </div>
+                <button class="btn-drawer-close" id="btnDrawerClose">&times;</button>
+            </div>
+            <div class="nessus-drawer-body" id="drawerPluginContent">
+                <!-- JS dinamik doldurur -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Geçmiş Taramalar & Trend Modalı -->
+    <div class="modal-backdrop-blur" id="historyModalBackdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 250; align-items: center; justify-content: center;">
+        <div class="modal-card-box" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 14px; width: 90%; max-width: 580px; max-height: 80vh; display: flex; flex-direction: column; box-shadow: var(--card-shadow); overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; border-bottom: 1px solid var(--border-subtle);">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">📈</span>
+                    <h3 style="font-size: 16px; font-weight: 800;" data-i18n="history_modal_title">Güvenlik Skoru Değişim Trendi & Geçmiş</h3>
+                </div>
+                <button class="btn-drawer-close" id="btnCloseHistory">&times;</button>
+            </div>
+            <div id="historyModalContent" style="padding: 20px 24px; overflow-y: auto; flex: 1;">
+                <!-- JS ile dinamik doldurulur -->
+            </div>
+            <div style="padding: 14px 24px; border-top: 1px solid var(--border-subtle); text-align: right;">
+                <button class="btn btn-secondary" id="btnDismissHistory" data-i18n="close">Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Bildirimi -->
+    <div class="toast-notification" id="toastNotice">Bildirim</div>
+
+    <script src="/static/js/app.js?v=4"></script>
+</body>
+</html>

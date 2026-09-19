@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+psutil
+pydantic
+pytest
+httpx
+pywin32
+wmi

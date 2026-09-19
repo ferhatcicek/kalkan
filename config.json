@@ -1,0 +1,19 @@
+{
+    "modules": {
+        "antivirus": true,
+        "appcontrol": true,
+        "asr": true,
+        "browser_security": false,
+        "credguard": true,
+        "firewall": true,
+        "hardware": true,
+        "identity": true,
+        "logging": true,
+        "network": true,
+        "persistence": true,
+        "secret_scan": false,
+        "software_inventory": false,
+        "storage_usb": true,
+        "updates": true
+    }
+}

@@ -1,0 +1,129 @@
+{
+    "common": {
+        "Etkin (Aktif)": "Enabled (Active)",
+        "Etkin": "Enabled",
+        "Devre Dışı": "Disabled",
+        "Devre Dışı veya Tanımsız": "Disabled or Undefined",
+        "Devre Dışı (Güvenli)": "Disabled (Secure)",
+        "Devre Dışı (Korumalı)": "Disabled (Protected)",
+        "Başarılı": "Passed",
+        "Riskli Portlar Açık": "Risky Ports Open",
+        "Yetki yetersizliği veya hata": "Insufficient permissions or error",
+        "Yalnızca Gerekli Portlar Açık Olmalı": "Only Necessary Ports Should Be Open",
+        "Standart Tanımlar Aktif": "Standard Definitions Active",
+        "Mükemmel & Sıkılaştırılmış": "Excellent & Hardened",
+        "Acil Eylem Gerekli": "Urgent Action Required",
+        "Güvenli Parametreler": "Secure Parameters"
+    },
+    "MOD_ANTIVIRUS": {
+        "name": "Antivirus & EDR Defense"
+    },
+    "MOD_NETWORK": {
+        "name": "Network Exposure, Ports & Protocols"
+    },
+    "MOD_UPDATES": {
+        "name": "Updates & Patch Management"
+    },
+    "AV-01": {
+        "title": "Antivirus Real-Time Protection",
+        "description": "Scans files and running processes in real-time against malware.",
+        "recommended_value": "Enabled (Active)",
+        "remediation": "Run with Administrator PowerShell:\nSet-MpPreference -DisableRealtimeMonitoring $false"
+    },
+    "AV-02": {
+        "title": "Cloud-Based Threat Detection (MAPS)",
+        "description": "Analyzes unknown zero-day threats via the Microsoft Cloud protection network.",
+        "recommended_value": "Enabled (Advanced)",
+        "remediation": "Run with Administrator PowerShell:\nSet-MpPreference -MAPSReporting Advanced"
+    },
+    "AV-03": {
+        "title": "Tamper Protection",
+        "description": "Prevents malware from modifying security settings (antivirus, firewall).",
+        "recommended_value": "Enabled",
+        "remediation": "Windows Security > Virus & Threat Protection > Manage Settings > Turn on Tamper Protection."
+    },
+    "AV-04": {
+        "title": "PUA/PUP Protection",
+        "description": "Blocks potentially unwanted applications that slow down the system.",
+        "recommended_value": "Enabled",
+        "remediation": "Run with Administrator PowerShell:\nSet-MpPreference -PUAProtection Enabled"
+    },
+    "AV-05": {
+        "title": "Controlled Folder Access (Ransomware Protection)",
+        "description": "Prevents unauthorized encryption of critical folders like Documents and Pictures by ransomware.",
+        "recommended_value": "Enabled (Recommended)",
+        "remediation": "Run with Administrator PowerShell:\nSet-MpPreference -EnableControlledFolderAccess Enabled"
+    },
+    "AV-06": {
+        "title": "Virus & Security Intelligence Definition Freshness",
+        "description": "Checks if Microsoft Defender virus and threat definitions are up to date.",
+        "recommended_value": "<= 24 hours (Latest Security Intelligence)",
+        "remediation": "Update definitions immediately via Admin PowerShell:\nUpdate-MpSignature"
+    },
+    "AV-07": {
+        "title": "Detected Antivirus / Security Products",
+        "description": "Lists registered security software on the system.",
+        "recommended_value": "Active AV/EDR Solution",
+        "remediation": "Standard protection is active."
+    },
+    "AV-08": {
+        "title": "Defender ASR Rules",
+        "description": "Prevents LSASS memory dumping, executing malicious macros from Office, etc.",
+        "recommended_value": "Enabled (Block Mode)",
+        "remediation": "Enable LSASS protection rule via PowerShell:\nAdd-MpPreference -AttackSurfaceReductionRules_Ids 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 -AttackSurfaceReductionRules_Actions Enabled"
+    },
+    "NET-01": {
+        "title": "Externally Listening Ports",
+        "description": "Audits services listening on 0.0.0.0 and :: for external connections.",
+        "recommended_value": "Minimal Listening Ports",
+        "remediation": "Stop unnecessary services or block incoming connections via Windows Firewall."
+    },
+    "NET-02": {
+        "title": "SMBv1 Protocol (EternalBlue / WannaCry Risk)",
+        "description": "SMBv1 is a legacy protocol; it's the propagation vector for ransomware like EternalBlue and WannaCry.",
+        "recommended_value": "Disabled (0)",
+        "remediation": "Disable immediately via Admin PowerShell:\nDisable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart"
+    },
+    "NET-03": {
+        "title": "LLMNR Protocol (NTLM Hash Theft Risk)",
+        "description": "Link-Local Multicast Name Resolution can be spoofed by attackers (Responder) to steal NTLMv2 hashes.",
+        "recommended_value": "Disabled (0)",
+        "remediation": "Disable via Admin PowerShell:\nSet-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient' -Name 'EnableMulticast' -Value 0 -Type DWord"
+    },
+    "NET-04": {
+        "title": "NetBIOS over TCP/IP Broadcast",
+        "description": "Legacy NetBIOS broadcasts allow attackers to spoof name queries on the local network.",
+        "recommended_value": "Disabled (2)",
+        "remediation": "Network Adapter Properties > IPv4 > Advanced > WINS > Check 'Disable NetBIOS over TCP/IP'."
+    },
+    "NET-05": {
+        "title": "Remote Desktop (RDP) & NLA Security",
+        "description": "If RDP is enabled without Network Level Authentication (NLA), it is vulnerable to pre-auth attacks like BlueKeep.",
+        "recommended_value": "NLA Enforced (1)",
+        "remediation": "Enforce NLA via Admin PowerShell:\nSet-ItemProperty -Path 'HKLM:\\System\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp' -Name 'UserAuthentication' -Value 1 -Type DWord"
+    },
+    "NET-06": {
+        "title": "Saved Wireless Network (Wi-Fi) Profiles",
+        "description": "Checks if the system has any saved open or unencrypted Wi-Fi profiles which can lead to Evil Twin attacks.",
+        "recommended_value": "Encrypted Networks Only (WPA2/WPA3)",
+        "remediation": "Delete unencrypted profiles via netsh."
+    },
+    "NET-07": {
+        "title": "SMB Packet Signing (SMB Signing Mandatory)",
+        "description": "Enforcing SMB signing prevents NTLM Relay and Man-in-the-Middle attacks.",
+        "recommended_value": "Enforced (RequireSecuritySignature=1)",
+        "remediation": "Enforce SMB signing via PowerShell:\nSet-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters' -Name 'RequireSecuritySignature' -Value 1 -Type DWord; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters' -Name 'RequireSecuritySignature' -Value 1 -Type DWord"
+    },
+    "UPD-04": {
+        "title": "3rd Party Software and Application Update Audit",
+        "description": "Scans for outdated third-party applications (browsers, runtimes, utilities) which could lead to exploitation.",
+        "recommended_value": "All applications up to date",
+        "remediation": "Run winget upgrade command."
+    },
+    "UPD-05": {
+        "title": "Pending Windows & Defender Updates",
+        "description": "Checks if there are critical OS or security patches pending installation.",
+        "recommended_value": "No pending critical updates",
+        "remediation": "Run UsoClient StartInteractiveScan"
+    }
+}

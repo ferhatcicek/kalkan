@@ -1,0 +1,202 @@
+/* CyberAudit PC - Çoklu Tema ve Stil Sistemi (Pluggable Theme Engine) */
+
+/* 1. ENTERPRISE DARK (CrowdStrike / Defender Standardı - Varsayılan) */
+[data-theme="enterprise-dark"], :root {
+    --bg-base: #090d16;
+    --bg-subtle: #0d1322;
+    --bg-surface: #131b2e;
+    --bg-card: #18223a;
+    --bg-card-hover: #1f2c4a;
+    --bg-input: #0f172a;
+    
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --border-focus: #3b82f6;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-glow: rgba(59, 130, 246, 0.25);
+
+    --accent: #60a5fa;
+    --accent-subtle: rgba(96, 165, 250, 0.12);
+
+    /* Durum Renkleri (Tailwind V2 Standardı) */
+    --color-pass: #10b981;
+    --color-pass-bg: rgba(16, 185, 129, 0.12);
+    --color-pass-border: rgba(16, 185, 129, 0.25);
+
+    --color-crit: #f43f5e;
+    --color-crit-bg: rgba(244, 63, 94, 0.12);
+    --color-crit-border: rgba(244, 63, 94, 0.25);
+
+    --color-high: #f97316;
+    --color-high-bg: rgba(249, 115, 22, 0.12);
+    --color-high-border: rgba(249, 115, 22, 0.25);
+
+    --color-med: #f59e0b;
+    --color-med-bg: rgba(245, 158, 11, 0.12);
+    --color-med-border: rgba(245, 158, 11, 0.25);
+
+    --color-low: #38bdf8;
+    --color-low-bg: rgba(56, 189, 248, 0.12);
+    --color-low-border: rgba(56, 189, 248, 0.25);
+
+    --gauge-empty: rgba(255, 255, 255, 0.05);
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    --card-shadow-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* 2. MIDNIGHT CYBER (Modern Neon / Datadog SOC Teması) */
+[data-theme="midnight-cyber"] {
+    --bg-base: #050811;
+    --bg-subtle: #090f1f;
+    --bg-surface: #0f172a;
+    --bg-card: #131e36;
+    --bg-card-hover: #192747;
+    --bg-input: #0a1124;
+
+    --border-subtle: rgba(0, 240, 255, 0.12);
+    --border-strong: rgba(0, 240, 255, 0.3);
+    --border-focus: #00f0ff;
+
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+
+    --primary: #00f0ff;
+    --primary-hover: #00c8d6;
+    --primary-glow: rgba(0, 240, 255, 0.35);
+
+    --accent: #8b5cf6;
+    --accent-subtle: rgba(139, 92, 246, 0.15);
+
+    --color-pass: #05df72;
+    --color-pass-bg: rgba(5, 223, 114, 0.15);
+    --color-pass-border: rgba(5, 223, 114, 0.3);
+
+    --color-crit: #ff2a5f;
+    --color-crit-bg: rgba(255, 42, 95, 0.15);
+    --color-crit-border: rgba(255, 42, 95, 0.3);
+
+    --color-high: #ff7828;
+    --color-high-bg: rgba(255, 120, 40, 0.15);
+    --color-high-border: rgba(255, 120, 40, 0.3);
+
+    --color-med: #ffbe1a;
+    --color-med-bg: rgba(255, 190, 26, 0.15);
+    --color-med-border: rgba(255, 190, 26, 0.3);
+
+    --color-low: #00b4d8;
+    --color-low-bg: rgba(0, 180, 216, 0.15);
+    --color-low-border: rgba(0, 180, 216, 0.3);
+
+    --gauge-empty: rgba(0, 240, 255, 0.05);
+    --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.05);
+    --card-shadow-hover: 0 15px 35px -5px rgba(0, 240, 255, 0.15);
+}
+
+/* 3. NORD FROST (Kuzey Kutbu / Rafine Minimalist) */
+[data-theme="nord-frost"] {
+    --bg-base: #242933;
+    --bg-subtle: #2e3440;
+    --bg-surface: #3b4252;
+    --bg-card: #434c5e;
+    --bg-card-hover: #4c566a;
+    --bg-input: #2e3440;
+
+    --border-subtle: rgba(216, 222, 233, 0.08);
+    --border-strong: rgba(216, 222, 233, 0.18);
+    --border-focus: #88c0d0;
+
+    --text-primary: #eceff4;
+    --text-secondary: #e5e9f0;
+    --text-muted: #d8dee9;
+    --text-dim: #9aa5b8;
+
+    --primary: #88c0d0;
+    --primary-hover: #81a1c1;
+    --primary-glow: rgba(136, 192, 208, 0.3);
+
+    --accent: #b48ead;
+    --accent-subtle: rgba(180, 142, 173, 0.15);
+
+    --color-pass: #a3be8c;
+    --color-pass-bg: rgba(163, 190, 140, 0.15);
+    --color-pass-border: rgba(163, 190, 140, 0.3);
+
+    --color-crit: #bf616a;
+    --color-crit-bg: rgba(191, 97, 106, 0.15);
+    --color-crit-border: rgba(191, 97, 106, 0.3);
+
+    --color-high: #d08770;
+    --color-high-bg: rgba(208, 135, 112, 0.15);
+    --color-high-border: rgba(208, 135, 112, 0.3);
+
+    --color-med: #ebcb8b;
+    --color-med-bg: rgba(235, 203, 139, 0.15);
+    --color-med-border: rgba(235, 203, 139, 0.3);
+
+    --color-low: #81a1c1;
+    --color-low-bg: rgba(129, 161, 193, 0.15);
+    --color-low-border: rgba(129, 161, 193, 0.3);
+
+    --gauge-empty: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* 4. ENTERPRISE LIGHT (Temiz Vanta / Stripe Aydınlık Kurumsal Tema) */
+[data-theme="enterprise-light"] {
+    --bg-base: #f8fafc;
+    --bg-subtle: #f1f5f9;
+    --bg-surface: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8fafc;
+    --bg-input: #ffffff;
+
+    --border-subtle: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --border-focus: #2563eb;
+
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-glow: rgba(37, 99, 235, 0.2);
+
+    --accent: #4f46e5;
+    --accent-subtle: rgba(79, 70, 229, 0.08);
+
+    --color-pass: #059669;
+    --color-pass-bg: #ecfdf5;
+    --color-pass-border: #a7f3d0;
+
+    --color-crit: #e11d48;
+    --color-crit-bg: #fff1f2;
+    --color-crit-border: #fecdd3;
+
+    --color-high: #ea580c;
+    --color-high-bg: #fff7ed;
+    --color-high-border: #fed7aa;
+
+    --color-med: #d97706;
+    --color-med-bg: #fffbeb;
+    --color-med-border: #fde68a;
+
+    --color-low: #0284c7;
+    --color-low-bg: #f0f9ff;
+    --color-low-border: #bae6fd;
+
+    --gauge-empty: #e2e8f0;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
