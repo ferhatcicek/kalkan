@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/logo.jpg" alt="KALKAN Logo" width="220" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+<img src="docs/assets/logo.png" alt="KALKAN Logo" width="220" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
 
 # KALKAN
 
