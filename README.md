@@ -5,14 +5,14 @@
 # KALKAN
 
 ### Advanced Windows Endpoint Security Audit & Hardening Platform
-**Next-Generation CIS Benchmark Compliance, Tenable/Nessus Ecosystem Integration & Automated Remediation**
+**Next-Generation CIS Benchmark Compliance, Vulnerability Intelligence & Automated Remediation**
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%2F%2011%20%2F%20Server-0078D6.svg?style=for-the-badge&logo=windows)](https://microsoft.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Compliance](https://img.shields.io/badge/Standard-CIS%20Benchmark%20%7C%20NIST-brightgreen.svg?style=for-the-badge)]()
-[![Exports](https://img.shields.io/badge/Exports-SARIF%20%7C%20CycloneDX%20%7C%20Nessus%20v2-orange.svg?style=for-the-badge)]()
+[![Exports](https://img.shields.io/badge/Exports-SARIF%20%7C%20CycloneDX%20%7C%20Executive%20HTML-orange.svg?style=for-the-badge)]()
 
 [English](README.md) • [Türkçe Dokümantasyon](README.tr.md)
 
@@ -49,16 +49,16 @@ Operating under the **Zero-Truncation Principle**, KALKAN comprehensively assess
 
 ---
 
-### 2. 🎯 Tenable / Nessus Ecosystem Compatibility
-* **Nessus Plugin Mapping**: Every check is enriched with Tenable Plugin IDs, CVSS v3.1 base metrics, Exploitability vectors, and Vulnerability Priority Rating (VPR).
-* **Pre-configured Scan Templates**:
+### 2. 🎯 Vulnerability Intelligence & Standard Scoring
+* **Universal Threat Scoring**: Every security check is enriched with standard CVSS v3.1 base metrics, Exploitability vectors, and Vulnerability Priority Rating (VPR).
+* **Pre-configured Audit Templates**:
   1. *Host Discovery & Quick Audit* (Lightweight reconnaissance)
   2. *Basic Network & Port Exposure* (Network & listening services)
   3. *CIS Benchmark Compliance Audit* (Hardening standards)
   4. *Malware & Ransomware Exposure* (Ransomware attack surface evaluation)
   5. *Advanced Full Security Audit* (All 15 modules with deep SCA)
-* **Nessus v2 XML Export**: Direct export in Tenable `.nessus` v2 XML format for seamless import into Tenable.sc, Tenable.io, or Nessus Professional.
 * **Executive Summary HTML Report**: Formatted executive reports displaying CVSS breakdown, risk distribution donuts, and high-priority vulnerability narratives.
+* **Interoperable XML Export**: Standard format export for seamless ingestion into enterprise vulnerability management ecosystems.
 
 ---
 
@@ -136,9 +136,9 @@ KALKAN/
 │   ├── base.py            # Data models (ScanReport, CategoryResult, CheckResult)
 │   ├── engine.py          # Concurrent & safe module execution engine
 │   ├── registry.py        # Dynamic module registration & discovery
-│   ├── templates.py       # Pre-configured Nessus-style audit templates
-│   ├── nessus_exporter.py # Nessus v2 XML & Executive HTML generators
-│   ├── plugin_model.py    # Tenable Plugin ID, CVSS v3.1 & VPR mapping
+│   ├── templates.py       # Pre-configured security audit templates
+│   ├── nessus_exporter.py # Standard XML & Executive HTML generators
+│   ├── plugin_model.py    # Standard Plugin ID, CVSS v3.1 & VPR mapping
 │   ├── remediation.py     # Priority remediation & PowerShell script builder
 │   ├── exporter.py        # HTML, SARIF v2.1.0, CycloneDX v1.5 SBOM
 │   ├── history.py         # Historical trend tracking & delta metrics

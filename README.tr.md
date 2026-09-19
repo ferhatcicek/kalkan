@@ -5,14 +5,14 @@
 # KALKAN
 
 ### Gelişmiş Windows Uç Nokta Güvenlik Denetim ve Sistem Sıkılaştırma Platformu
-**Yeni Nesil CIS Benchmark Uyumluluğu, Tenable/Nessus Entegrasyonu ve Otomatik Sıkılaştırma**
+**Yeni Nesil CIS Benchmark Uyumluluğu, Kurumsal Zafiyet İstihbaratı ve Otomatik Sıkılaştırma**
 
 [![Python Sürümü](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%2F%2011%20%2F%20Server-0078D6.svg?style=for-the-badge&logo=windows)](https://microsoft.com)
 [![Lisans](https://img.shields.io/badge/Lisans-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Standart](https://img.shields.io/badge/Standart-CIS%20Benchmark%20%7C%20NIST-brightgreen.svg?style=for-the-badge)]()
-[![Dışa Aktarma](https://img.shields.io/badge/Dışa%20Aktarma-SARIF%20%7C%20CycloneDX%20%7C%20Nessus%20v2-orange.svg?style=for-the-badge)]()
+[![Dışa Aktarma](https://img.shields.io/badge/Dışa%20Aktarma-SARIF%20%7C%20CycloneDX%20%7C%20Yönetici%20HTML-orange.svg?style=for-the-badge)]()
 
 [English Documentation](README.md) • [Türkçe Dokümantasyon](README.tr.md)
 
@@ -49,16 +49,16 @@
 
 ---
 
-### 2. 🎯 Tenable / Nessus Ekosistem Uyumluluğu
-* **Nessus Plugin Eşleştirmesi**: Her kontrol noktası Tenable Plugin ID, CVSS v3.1 temel skoru, sömürü vektörü ve VPR (Vulnerability Priority Rating) bilgisiyle zenginleştirilmiştir.
-* **Önceden Tanımlı Tarama Şablonları**:
+### 2. 🎯 Kurumsal Zafiyet İstihbaratı ve Standart Tehdit Puanlaması
+* **Evrensel Tehdit Puanlaması**: Her kontrol noktası standart CVSS v3.1 temel skoru, sömürü vektörü ve VPR (Vulnerability Priority Rating) bilgisiyle zenginleştirilmiştir.
+* **Önceden Tanımlı Denetim Şablonları**:
   1. *Host Keşfi ve Hızlı Denetim* (Temel sistem tanıma)
   2. *Temel Ağ ve Port Maruziyeti* (Dinlenen portlar ve ağ servisleri)
   3. *CIS Benchmark Uyumluluk Denetimi* (Sistem sıkılaştırma standartları)
   4. *Zararlı Yazılım & Fidye Yazılımı Açıklığı* (Ransomware saldırı yüzeyi)
   5. *İleri Düzey Tam Güvenlik Denetimi* (15 modülün tamamı ve SCA analizi)
-* **Nessus v2 XML Dışa Aktarımı**: Tenable.sc, Tenable.io ve Nessus Professional sistemlerine doğrudan aktarılabilir `.nessus` formatında rapor üretimi.
 * **Yönetici Özeti (Executive Summary) HTML**: CVSS puan dağılımı, risk çarkları ve yöneticiler için zafiyet özetlerini içeren şık raporlama.
+* **Birlikte Çalışabilir Standart XML Dışa Aktarımı**: Kurumsal zafiyet yönetimi ve SIEM platformlarıyla kusursuz entegrasyon için standart XML çıktısı.
 
 ---
 
@@ -136,9 +136,9 @@ KALKAN/
 │   ├── base.py            # Veri modelleri (ScanReport, CategoryResult, CheckResult)
 │   ├── engine.py          # Eşzamanlı ve korumalı modül çalıştırma motoru
 │   ├── registry.py        # Dinamik modül kayıt ve keşif mekanizması
-│   ├── templates.py       # Nessus tarzı hazır denetim şablonları
-│   ├── nessus_exporter.py # Nessus v2 XML ve Executive HTML oluşturucuları
-│   ├── plugin_model.py    # Tenable Plugin ID, CVSS v3.1 ve VPR haritalama
+│   ├── templates.py       # Hazır güvenlik denetim şablonları
+│   ├── nessus_exporter.py # Standart XML ve Yönetici HTML oluşturucuları
+│   ├── plugin_model.py    # Standart Plugin ID, CVSS v3.1 ve VPR haritalama
 │   ├── remediation.py     # Öncelikli düzeltme ve PowerShell betik üretici
 │   ├── exporter.py        # HTML, SARIF v2.1.0, CycloneDX v1.5 SBOM
 │   ├── history.py         # Geçmiş tarama trendleri ve metrik takibi
