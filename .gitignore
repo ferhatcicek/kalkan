@@ -63,3 +63,12 @@ history.json
 export/
 tmp/
 temp/
+
+# AI Development Docs
+docs/API_SPECIFICATION.md
+docs/ARCHITECTURE.md
+docs/DEVELOPMENT_PLAN.md
+docs/PLUGIN_GUIDE.md
+docs/SECURITY_CHECKS_CATALOG.md
+docs/THEME_GUIDE.md
+docs/UI_UX_SPECIFICATION.md
