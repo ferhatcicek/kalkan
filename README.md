@@ -2,8 +2,6 @@
 
 <img src="docs/assets/logo.png" alt="KALKAN Logo" width="220" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
 
-# KALKAN
-
 ### Advanced Windows Endpoint Security Audit & Hardening Platform
 **Next-Generation CIS Benchmark Compliance, Vulnerability Intelligence & Automated Remediation**
 
